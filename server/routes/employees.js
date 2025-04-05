@@ -4,8 +4,14 @@ import Transaction from '../models/Transaction.js';  // Ensure ES module import
 
 const router = express.Router();
 
-// Add your routes here as before
-// For example, a route to get all transactions
+
+// testing the API directly
+//http://localhost:5002/api/employees/test
+
+router.get('/test', (req, res) => {
+  res.json({ message: 'Employees API is working' });
+});
+
 router.get('/', async (req, res) => {
   try {
     const transactions = await Transaction.find();
@@ -18,16 +24,42 @@ router.get('/', async (req, res) => {
 
 
 // Get on-chain employees
+// router.get('/on-chain', async (req, res) => {
+//   try {
+//     const contract = req.contract;
+//     const count = await contract.methods.getEmployeeCount().call();
+//     const employeeList = [];
+
+//     for (let i = 0; i < count; i++) {
+//       const address = await contract.methods.employeeAddresses(i).call();
+//       const details = await contract.methods.getEmployeeDetails(address).call();
+
+//       employeeList.push({
+//         address,
+//         salary: Web3.utils.fromWei(details.salary, 'ether'),
+//         lastPayment: new Date(details.lastPayment * 1000),
+//         active: details.active
+//       });
+//     }
+
+//     res.json(employeeList);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
+
+
 router.get('/on-chain', async (req, res) => {
   try {
     const contract = req.contract;
     const count = await contract.methods.getEmployeeCount().call();
     const employeeList = [];
-
+    
     for (let i = 0; i < count; i++) {
       const address = await contract.methods.employeeAddresses(i).call();
       const details = await contract.methods.getEmployeeDetails(address).call();
-
+      
       employeeList.push({
         address,
         salary: Web3.utils.fromWei(details.salary, 'ether'),
@@ -35,9 +67,10 @@ router.get('/on-chain', async (req, res) => {
         active: details.active
       });
     }
-
+    
     res.json(employeeList);
   } catch (err) {
+    console.error('Error in /on-chain route:', err);
     res.status(500).json({ message: err.message });
   }
 });
