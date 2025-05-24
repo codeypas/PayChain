@@ -140,7 +140,7 @@ router.patch('/:address', async (req, res) => {
   }
 });
 
-// Delete an employee
+// Delete an employee not working
 router.delete('/:address', async (req, res) => {
   try {
     const employee = await Employee.findOne({ address: req.params.address.toLowerCase() });

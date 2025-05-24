@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 contract PayrollSystem {
     address public owner;
-    uint256 public paymentInterval = 30 minutes;
+    uint256 public paymentInterval = 5 minutes;
     
     struct Employee {
         address payable walletAddress;

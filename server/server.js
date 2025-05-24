@@ -9,6 +9,8 @@ import employeeRoutes from './routes/employees.js';
 import transactionRoutes from './routes/transactions.js';
 import contractABI from './contractABI.json' assert { type: 'json' };
 
+
+
 // Load environment variables
 dotenv.config();
 
