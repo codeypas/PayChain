@@ -70,6 +70,25 @@ app.listen(PORT, () => {
 
 
 
+//last part: Payroll automation using cron
+
+import cron from 'node-cron';
+
+
+const payrollAccount = process.env.PAYROLL_ACCOUNT; // The owner's address (must be unlocked or have private key)
+const payrollInterval = process.env.PAYROLL_INTERVAL || '*/1 * * * *'; // Every minute
+
+cron.schedule(payrollInterval, async () => {
+  try {
+    console.log('Attempting to process payroll...');
+    const gas = await req.contract.methods.processPayroll().estimateGas({ from: payrollAccount });
+    const tx = await req.contract.methods.processPayroll().send({ from: payrollAccount, gas });
+    console.log('Payroll processed:', tx.transactionHash);
+  } catch (err) {
+    console.error('Payroll automation error:', err.message);
+  }
+});
+
 
 
 // import express from 'express';
