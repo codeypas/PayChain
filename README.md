@@ -22,7 +22,7 @@ PayChain is a decentralized payroll system that enables **real-time salary payme
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/paychain.git
+git clone https://github.com/codeypas/paychain.git
 cd paychain
 ```
 
